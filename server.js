@@ -4,6 +4,8 @@ import fetch from "node-fetch";
 const app = express();
 
 const redirect_uri = "http://localhost:3000/callback";
+const client_id = "b64887425f084ee6b8d19f8d7d94625a";
+const client_secret = "4ce2333e3e3040cab1bdbc490eb71e7e";
 
 global.access_token;
 
@@ -20,7 +22,7 @@ app.get("/authorize", (req, res) => {
   var auth_query_parameters = new URLSearchParams({
     response_type: "code",
     client_id: client_id,
-    scope:"",
+    scope:"user-library-read",
     redirect_uri: redirect_uri
   })
 
@@ -54,10 +56,9 @@ app.get("/callback", async (req, res) => {
 
 });
 
-app.get("/dashboard", async (req, res) => {
+async function getData(endpoint) {
 
-
-  const response = await fetch("https://api.spotify.com/v1/me", {
+  const response = await fetch("https://api.spotify.com/v1" + endpoint, {
     method: "get",
     headers: {
       Authorization: "Bearer " + global.access_token,
@@ -65,8 +66,16 @@ app.get("/dashboard", async (req, res) => {
   })
 
   const data = await response.json();
-  console.log(data);
-  res.render("dashboard", {user: data})
+  return data;
+
+}
+
+app.get("/dashboard", async (req, res) => {
+
+  const userInfo = await getData("/me");
+  const tracks = await getData("/me/tracks?limit=10");
+
+  res.render("dashboard", {user: userInfo, tracks: tracks.items})
 
 });
 

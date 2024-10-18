@@ -79,6 +79,23 @@ app.get("/dashboard", async (req, res) => {
 
 });
 
+app.get("/recommendations", async (req, res) => {
+
+  const artist_id = req.query.artist;
+  const track_id = req.query.track;
+
+  const params = new URLSearchParams({
+    seed_artist: artist_id,
+    seed_genres: "rock",
+    seed_tracks: track_id,
+  })
+
+  const data = await getData("/recommendations?" + params);
+
+  res.render("recommendation", { tracks: data.tracks});
+
+})
+
 let listener = app.listen(3000, function () {
   console.log(
     "Your app is listening on http://localhost:" + listener.address().port

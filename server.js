@@ -4,8 +4,6 @@ import fetch from "node-fetch";
 const app = express();
 
 const redirect_uri = "http://localhost:3000/callback";
-const client_id = "b64887425f084ee6b8d19f8d7d94625a";
-const client_secret = "4ce2333e3e3040cab1bdbc490eb71e7e";
 
 global.access_token;
 

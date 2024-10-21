@@ -1,11 +1,13 @@
 import express from "express";
 import fetch from "node-fetch";
+import 'dotenv/config';
 
 const app = express();
 
 const redirect_uri = "http://localhost:3000/callback";
-const client_id = "b64887425f084ee6b8d19f8d7d94625a";
-const client_secret = "4ce2333e3e3040cab1bdbc490eb71e7e";
+const spotify_client_id = process.env.SPOTIFY_CLIENT_ID
+const spotify_client_secret = process.env.SPOTIFY_CLIENT_SECRET
+
 
 global.access_token;
 
@@ -21,7 +23,7 @@ app.get("/", function (req, res) {
 app.get("/authorize", (req, res) => {
   var auth_query_parameters = new URLSearchParams({
     response_type: "code",
-    client_id: client_id,
+    client_id: spotify_client_id,
     scope:"user-library-read",
     redirect_uri: redirect_uri
   })
@@ -45,7 +47,7 @@ app.get("/callback", async (req, res) => {
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
       "Authorization":
-      "Basic " + Buffer.from(client_id + ":" + client_secret).toString("base64")
+      "Basic " + Buffer.from(spotify_client_id + ":" + spotify_client_secret).toString("base64")
     }
   })
 
@@ -101,3 +103,20 @@ let listener = app.listen(3000, function () {
     "Your app is listening on http://localhost:" + listener.address().port
   );
 });
+
+
+function webPlayer() {
+  window.onSpotifyWebPlaybackSDKReady = () => {
+    const token = global.access_token;
+    const player = new Spotify.Player({
+      name: 'Spotify Player',
+      getOAuthToken: cb => { cb(token); }
+    });
+  };
+
+  player.connect().then(success => {
+    if (success) {
+      console.log('The Web Playback SDK successfully connected to Spotify!');
+    }
+  })
+};

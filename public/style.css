@@ -122,6 +122,9 @@ button:before, button:after {
     left: 47%;
     top: 50%;
 }
+.table {
+  margin-left: 20px;
+}
 
 @keyframes rotateAngle {
   0% {

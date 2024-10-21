@@ -85,10 +85,11 @@ app.get("/recommendations", async (req, res) => {
 
   const artist_id = req.query.artist;
   const track_id = req.query.track;
+  const genre_id = req.query.artist.genre;
 
   const params = new URLSearchParams({
     seed_artist: artist_id,
-    seed_genres: "rock",
+    seed_genres: genre_id,
     seed_tracks: track_id,
   })
 

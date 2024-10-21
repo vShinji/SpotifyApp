@@ -6,6 +6,10 @@ block content
       h1 Welcome! #{user.display_name}
   </div>
 
+  <div class="table">
+
+  h2 Liked tracks:
+
     table
       each t in tracks
         tr
@@ -18,3 +22,4 @@ block content
           td #{artist_name}
           td: a(href="/recommendations?artist=" + artist_id + "&track=" + track_id) #{track_name}
           td: a(href=track_preview) Preview
+  </div>

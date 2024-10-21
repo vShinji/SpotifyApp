@@ -103,20 +103,3 @@ let listener = app.listen(3000, function () {
     "Your app is listening on http://localhost:" + listener.address().port
   );
 });
-
-
-function webPlayer() {
-  window.onSpotifyWebPlaybackSDKReady = () => {
-    const token = global.access_token;
-    const player = new Spotify.Player({
-      name: 'Spotify Player',
-      getOAuthToken: cb => { cb(token); }
-    });
-  };
-
-  player.connect().then(success => {
-    if (success) {
-      console.log('The Web Playback SDK successfully connected to Spotify!');
-    }
-  })
-};

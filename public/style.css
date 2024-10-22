@@ -1,12 +1,15 @@
 body {
   padding: 1em 2em;
   background-color: #352F44;
+  overflow-x: hidden;
 }
 
-h1,h2,h3,p,td {
+h1,h2,h3,p,td,ol,li {
   color: #FAF0E6;
-}
+  padding: 0px;
+  margin: 0px;
 
+}
 
 ul.footer {
   list-style:none;
@@ -123,7 +126,16 @@ button:before, button:after {
     top: 50%;
 }
 .table {
-  margin-left: 20px;
+  margin-left: 60px;
+}
+
+.track-box:hover {
+  background-color: #faf0e62c;
+  border-radius: 30px;
+}
+.navbar {
+  height: 5svh;
+  display: flex;
 }
 
 @keyframes rotateAngle {

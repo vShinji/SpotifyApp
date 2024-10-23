@@ -3,7 +3,7 @@ Spotify App
 Simple Spotify demo app made in node.js.
 
 - Login page
-- Dashboard with lastest liked tracks
+- Dashboard with lastest liked tracks based on your spotify account
 - Recommendations based on the selected track
 - 30 seconds preview of the tracks
 
